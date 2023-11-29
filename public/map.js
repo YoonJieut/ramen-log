@@ -4,7 +4,7 @@ import areaContent from "./reviewPage.js";
 import firebaseConfig from "./model/firebaseConfig.js";
 import areaArr from "./asset/areaArr.js";
 
-import addLocationToFirestore from "./model/addLocationToFirestore.js";
+import DBSaveFunction from "./model/mapModels/DBSaveFunction.js";
 import addReviewToFirestore from "./model/addReviewToFirestore.js";
 import closeAllInfoWindows from "./model/closeAllInfoWindows.js";
 
@@ -64,7 +64,7 @@ import closeAllInfoWindows from "./model/closeAllInfoWindows.js";
 //   });
 // }
 
-// -------------------------------------
+// -------------- firebase 구동 -----------------------
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -102,7 +102,7 @@ areaArr.forEach((location, index) => {
   var infoWindow = new naver.maps.InfoWindow();
   areaInfoWindows.push(infoWindow);
 
-  
+
   // * 마커 이벤트 추가 
   marker.addListener("click", async function () {
     const infoWindow = areaInfoWindows[index];
