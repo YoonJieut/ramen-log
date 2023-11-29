@@ -1,14 +1,9 @@
 import areaContent from "./reviewPage.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBxyxuRlvxV3KsA4KErPwlZCPhbsHDN-IU",
-  authDomain: "ramen-log.firebaseapp.com",
-  projectId: "ramen-log",
-  storageBucket: "ramen-log.appspot.com",
-  messagingSenderId: "292296321273",
-  appId: "1:292296321273:web:bacc165856b927edff5a28",
-  measurementId: "G-LZHR47DK5H",
-};
+// 밑의 것들이 추가한 것들
+import firebaseConfig from "./model/firebaseConfig.js";
+import addLocationToFirestore from "./model/addLocationToFirestore.js";
+import areaArr from "./asset/areaArr.js";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -18,22 +13,22 @@ if (!firebase.apps.length) {
 
 const db = firebase.firestore();
 
-function addLocationToFirestore(locationObj) {
-  db.collection("store")
-    .doc(locationObj.location)
-    .set({})
-    .then(() => {
-      console.log("Document written with ID: ", locationObj.location);
-    })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
-    });
-}
+// function addLocationToFirestore(locationObj) {
+//   db.collection("store")
+//     .doc(locationObj.location)
+//     .set({})
+//     .then(() => {
+//       console.log("Document written with ID: ", locationObj.location);
+//     })
+//     .catch((error) => {
+//       console.error("Error adding document: ", error);
+//     });
+// }
 
-let areaArr = [
-  {location: "멘야이토", lat: 36.35026761782584, lng: 127.37714510689068},
-  {location: "멘야산다이메", lat: 36.352281017969304, lng: 127.3773707115313},
-];
+// let areaArr = [
+//   {location: "멘야이토", lat: 36.35026761782584, lng: 127.37714510689068},
+//   {location: "멘야산다이메", lat: 36.352281017969304, lng: 127.3773707115313},
+// ];
 
 areaArr.forEach((location) => {
   db.collection("store")
