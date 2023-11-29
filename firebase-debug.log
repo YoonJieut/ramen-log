@@ -1,0 +1,37 @@
+[debug] [2023-11-29T08:43:48.529Z] ----------------------------------------------------------------------
+[debug] [2023-11-29T08:43:48.533Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only hosting
+[debug] [2023-11-29T08:43:48.534Z] CLI Version:   12.7.0
+[debug] [2023-11-29T08:43:48.535Z] Platform:      win32
+[debug] [2023-11-29T08:43:48.535Z] Node Version:  v18.17.1
+[debug] [2023-11-29T08:43:48.538Z] Time:          Wed Nov 29 2023 17:43:48 GMT+0900 (대한민국 표준시)
+[debug] [2023-11-29T08:43:48.539Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-11-29T08:43:48.550Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-11-29T08:43:48.722Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-11-29T08:43:48.722Z] > authorizing via signed-in user (yoonjieut@gmail.com)
+[debug] [2023-11-29T08:43:48.723Z] [iam] checking project ramen-log for permissions ["firebase.projects.get"]
+[debug] [2023-11-29T08:43:48.724Z] > refreshing access token with scopes: []
+[debug] [2023-11-29T08:43:48.724Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-11-29T08:43:48.725Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-11-29T08:43:48.949Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-11-29T08:43:48.950Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-11-29T08:43:48.964Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ramen-log:testIamPermissions [none]
+[debug] [2023-11-29T08:43:48.965Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ramen-log:testIamPermissions x-goog-quota-user=projects/ramen-log
+[debug] [2023-11-29T08:43:48.965Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ramen-log:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-11-29T08:43:49.117Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2023-11-29T08:43:49.117Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2023-11-29T08:43:50.360Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ramen-log:testIamPermissions 200
+[debug] [2023-11-29T08:43:50.361Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ramen-log:testIamPermissions {}
+[debug] [2023-11-29T08:43:50.362Z] [iam] error while checking permissions, command may fail: FirebaseError: Authorization failed. This account is missing the following required permissions on project ramen-log:
+
+  firebase.projects.get
+[debug] [2023-11-29T08:43:50.366Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ramen-log [none]
+[debug] [2023-11-29T08:43:50.848Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ramen-log 403
+[debug] [2023-11-29T08:43:50.849Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ramen-log {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2023-11-29T08:43:50.850Z] HTTP Error: 403, The caller does not have permission
+[debug] [2023-11-29T08:43:51.179Z] FirebaseError: HTTP Error: 403, The caller does not have permission
+    at responseToError (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:49:12)
+    at RetryOperation._fn (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:285:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to get Firebase project ramen-log. Please make sure the project exists and your account has permission to access it.
