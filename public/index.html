@@ -46,71 +46,73 @@
     <div id="root2">
       <div id="map" style="width:90vw;height:88vh;"></div>
     </div>
+    
     <div id="root3"></div>
     <div id="load"></div>
-    <script type="module" src="routes.js"></script>
 
+    <script type="module" src="routes.js"></script>
     <script type=module src="map.js"></script>
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-  const loadEl = document.querySelector('#load');
-  try {
-    const firebaseConfig = {
-      apiKey: "AIzaSyBxyxuRlvxV3KsA4KErPwlZCPhbsHDN-IU",
-      authDomain: "ramen-log.firebaseapp.com",
-      projectId: "ramen-log",
-      storageBucket: "ramen-log.appspot.com",
-      messagingSenderId: "292296321273",
-      appId: "1:292296321273:web:bacc165856b927edff5a28",
-      measurementId: "G-LZHR47DK5H",
-    };
+      const loadEl = document.querySelector('#load');
+      try {
+        const firebaseConfig = {
+          apiKey: "AIzaSyBxyxuRlvxV3KsA4KErPwlZCPhbsHDN-IU",
+          authDomain: "ramen-log.firebaseapp.com",
+          projectId: "ramen-log",
+          storageBucket: "ramen-log.appspot.com",
+          messagingSenderId: "292296321273",
+          appId: "1:292296321273:web:bacc165856b927edff5a28",
+          measurementId: "G-LZHR47DK5H",
+        };
 
-    if (!firebase.apps.length) {
-      const app = firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+          const app = firebase.initializeApp(firebaseConfig);
 
-      let features = [
-        'auth', 
-        'database', 
-        'firestore',
-        'functions',
-        'messaging', 
-        'storage', 
-        'analytics', 
-        'remoteConfig',
-        'performance',
-      ].filter(feature => typeof app[feature] === 'function');
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
 
-      loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
 
-      // Firebase 초기화 이후에 사용자 상태 변경 감지 및 이메일 표시
-      firebase.auth().onAuthStateChanged((user) => {
-        displayUserEmail(user); // 사용자 이메일 표시 함수 호출
-      });
+          // Firebase 초기화 이후에 사용자 상태 변경 감지 및 이메일 표시
+          firebase.auth().onAuthStateChanged((user) => {
+            displayUserEmail(user); // 사용자 이메일 표시 함수 호출
+          });
 
-    } else {
-      const app = firebase.app(); // 이미 초기화된 Firebase 앱 가져오기
-      let features = [
-        'auth', 
-        'database', 
-        'firestore',
-        'functions',
-        'messaging', 
-        'storage', 
-        'analytics', 
-        'remoteConfig',
-        'performance',
-      ].filter(feature => typeof app[feature] === 'function');
-      loadEl.textContent = `Firebase SDK already initialized with ${features.join(', ')}`;
+        } else {
+          const app = firebase.app(); // 이미 초기화된 Firebase 앱 가져오기
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
+          loadEl.textContent = `Firebase SDK already initialized with ${features.join(', ')}`;
 
-      // Firebase 초기화 이후에 사용자 상태 변경 감지 및 이메일 표시
-      firebase.auth().onAuthStateChanged((user) => {
-        displayUserEmail(user); // 사용자 이메일 표시 함수 호출
-      });
-    }
-  } catch (e) {
-    console.error(e);
-    loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-  }
+          // Firebase 초기화 이후에 사용자 상태 변경 감지 및 이메일 표시
+          firebase.auth().onAuthStateChanged((user) => {
+            displayUserEmail(user); // 사용자 이메일 표시 함수 호출
+          });
+        }
+      } catch (e) {
+        console.error(e);
+        loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+      }
 
   // 사용자 이메일 표시 함수
   function displayUserEmail(user) {
