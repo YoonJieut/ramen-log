@@ -2,16 +2,31 @@ import areaContent from "./reviewPage.js";
 
 // 밑의 것들이 추가한 것들
 import firebaseConfig from "./model/firebaseConfig.js";
-import addLocationToFirestore from "./model/addLocationToFirestore.js";
 import areaArr from "./asset/areaArr.js";
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-} else {
-  firebase.app(); // 이미 초기화된 앱을 가져옴
-}
+import addLocationToFirestore from "./model/addLocationToFirestore.js";
+import addReviewToFirestore from "./model/addReviewToFirestore.js";
+import closeAllInfoWindows from "./model/closeAllInfoWindows.js";
 
-const db = firebase.firestore();
+// ! 함수 선언 파트
+
+// function closeAllInfoWindows() {
+//   areaInfoWindows.forEach((infoWindow) => {
+//     infoWindow.close();
+//   });
+// }
+
+// function addReviewToFirestore(location, reviewData, reviewerId) {
+//   const docRef = db.collection("store").doc(location);
+//   docRef
+//     .set({[reviewerId]: reviewData}, {merge: true}) // 새로운 문서를 생성하고 리뷰 데이터를 추가 또는 업데이트
+//     .then(() => {
+//       console.log("Review added to Firestore for: ", location);
+//     })
+//     .catch((error) => {
+//       console.error("Error adding review to document: ", error);
+//     });
+// }
 
 // function addLocationToFirestore(locationObj) {
 //   db.collection("store")
@@ -30,20 +45,38 @@ const db = firebase.firestore();
 //   {location: "멘야산다이메", lat: 36.352281017969304, lng: 127.3773707115313},
 // ];
 
-areaArr.forEach((location) => {
-  db.collection("store")
-    .doc(location.location)
-    .get()
-    .then((doc) => {
-      if (!doc.exists) {
-        addLocationToFirestore(location);
-      }
-    })
-    .catch((error) => {
-      console.error("Error checking document: ", error);
-    });
-});
+// // * DB에 저장하는 로직
+// function DBSaveFunction(){
+//   const db = firebase.firestore();
+  
+//   areaArr.forEach((location) => {
+//     db.collection("store")
+//       .doc(location.location)
+//       .get()
+//       .then((doc) => {
+//         if (!doc.exists) {
+//           addLocationToFirestore(location);
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Error checking document: ", error);
+//       });
+//   });
+// }
 
+// -------------------------------------
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // 이미 초기화된 앱을 가져옴
+}
+
+// asset의 areaArr.js를 수정하면 DB에 저장이된다.
+DBSaveFunction();
+
+// ---------------API 관련 파트 -------------
+// 맵 초기화
 var mapOptions = {
   center: new naver.maps.LatLng(36.350411, 127.384547),
   zoom: 12,
@@ -57,12 +90,8 @@ naver.maps.Event.addListener(map, "click", function () {
   closeAllInfoWindows();
 });
 
-function closeAllInfoWindows() {
-  areaInfoWindows.forEach((infoWindow) => {
-    infoWindow.close();
-  });
-}
 
+// * 마커 추가 로직
 areaArr.forEach((location, index) => {
   var marker = new naver.maps.Marker({
     map: map,
@@ -73,6 +102,8 @@ areaArr.forEach((location, index) => {
   var infoWindow = new naver.maps.InfoWindow();
   areaInfoWindows.push(infoWindow);
 
+  
+  // * 마커 이벤트 추가 
   marker.addListener("click", async function () {
     const infoWindow = areaInfoWindows[index];
     if (infoWindow.getMap()) {
@@ -129,17 +160,6 @@ areaArr.forEach((location, index) => {
   markers.push(marker);
 });
 
-function addReviewToFirestore(location, reviewData, reviewerId) {
-  const docRef = db.collection("store").doc(location);
-  docRef
-    .set({[reviewerId]: reviewData}, {merge: true}) // 새로운 문서를 생성하고 리뷰 데이터를 추가 또는 업데이트
-    .then(() => {
-      console.log("Review added to Firestore for: ", location);
-    })
-    .catch((error) => {
-      console.error("Error adding review to document: ", error);
-    });
-}
 
 async function getReviewsForStore(storeName) {
   const docRef = db.collection("store").doc(storeName);
